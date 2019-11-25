@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Edit "{{ bat['name'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <label for="name">Name</label>
+        <input name="name" id="name" value="{{ request.form['name'] or bat['name']}}" required>
+
+        <label for="scientificname">Scientific Name</label>
+        <input name="scientificname" id="scientificname" value="{{ request.form['scientificname'] or bat['scientificname']}}" required>
+
+        <label for="description">Information</label>
+        <textarea name="description" id="description">{{ request.form['description'] or bat['description'] }}</textarea>
+        <input type="submit" value="Save">
+    </form>
+
+    <hr>
+    <form action="{{ url_for('bat.delete', id=bat['id']) }}" method="post">
+        <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+    </form>
+{% endblock %}

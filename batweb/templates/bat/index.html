@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Bats{% endblock %}</h1>
+    {% if g.user %}
+        <a class="action" href="{{ url_for('bat.create') }}">New</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% for bat in bats %}
+        <article class="post">
+            <header>
+                <div>
+                    <h1>{{ bat['name'] }} - {{ bat['scientificname'] }} </h1>
+                </div>
+                {% if g.user['id'] == bat['user_id'] %}
+                    <a class="action" href="{{ url_for('bat.update', id=bat['id']) }}">Edit</a>
+                {% endif %}
+            </header>
+            <p class="body">{{ bat['description'] }}</p>
+        </article>
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

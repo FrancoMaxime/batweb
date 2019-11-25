@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}New Bat{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <label for="name">Name</label>
+        <input name="name" id="name" value="{{ request.form['name'] }}" required>
+
+        <label for="scientificname">Scientific Name</label>
+        <input name="scientificname" id="scientificname" value="{{ request.form['scientificname'] }}" required>
+        <label for="description">Information</label>
+        <textarea name="description" id="description">{{ request.form['description'] }}</textarea>
+        <input type="submit" value="Save">
+    </form>
+{% endblock %}

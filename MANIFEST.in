@@ -1,0 +1,6 @@
+include LICENSE
+include batweb/schema.sql
+graft batweb/static
+graft batweb/templates
+graft tests
+global-exclude *.pyc

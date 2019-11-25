@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Edit Detection{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <label for="bat">Bat</label>
+        <select name="bat" id="bat" required>
+            <option value="">--Please choose an option--</option>
+            {% for bat in bats %}
+                <option value="{{ bat['id'] }}">{{ bat['name'] }} -- {{ bat['scientificname'] }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="terminal">Terminal</label>
+        <select name="terminal" id="terminal" required>
+            <option value="">--Please choose an option--</option>
+            {% for terminal in terminals %}
+                <option value="{{ terminals['id'] }}">{{ terminal['name'] }} -- {{ terminal['location'] }}</option>
+            {% endfor %}
+        </select>
+        <label for="information">Information</label>
+        <textarea name="information" id="information">{{ request.form['body'] or detection['information'] }}</textarea>
+        <input type="submit" value="Save">
+    </form>
+
+    <hr>
+    <form action="{{ url_for('detection.delete', id=detection['id']) }}" method="post">
+        <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+    </form>
+{% endblock %}

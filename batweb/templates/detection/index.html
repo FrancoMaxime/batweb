@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Detections{% endblock %}</h1>
+    {% if g.user %}
+        <a class="action" href="{{ url_for('detection.create') }}">New</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% for detection in detections %}
+        <article class="post">
+            <header>
+                <div>
+                    <h1>{{ detection['bname'] }} - {{ detection['scientificname'] }}</h1>
+                    <div class="about">by {{ detection['tname'] }} on {{ detection['detected'] }}</div>
+                </div>
+                {% if g.user['id'] == detection['user_id'] %}
+                    <a class="action" href="{{ url_for('detection.update', id=detection['id']) }}">Edit</a>
+                {% endif %}
+            </header>
+            <p class="body">{{ detection['information'] }}</p>
+        </article>
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

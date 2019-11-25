@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Terminals{% endblock %}</h1>
+    {% if g.user %}
+        <a class="action" href="{{ url_for('terminal.create') }}">New</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% for terminal in terminals %}
+        <article class="post">
+            <header>
+                <div>
+                    <h1>{{ terminal['name'] }} - {{ terminal['location'] }}</h1>
+                </div>
+                {% if g.user['id'] == terminal['user_id'] %}
+                    <a class="action" href="{{ url_for('terminal.update', id=terminal['id']) }}">Edit</a>
+                {% endif %}
+            </header>
+            <p class="body">{{ terminal['information'] }}</p>
+        </article>
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
